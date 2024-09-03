@@ -59,6 +59,13 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
+
+      # Step 1: Log in to Azure using the Publish Profile Secret
+      - name: 'Log in to Azure'
+        uses: azure/login@v1
+        with:
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -66,4 +73,3 @@ jobs:
         with:
           app-name: 'djangoappdeployment'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F2D546F617554850B15A3B60F5E2052A }}
